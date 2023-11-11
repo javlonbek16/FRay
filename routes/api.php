@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GenresController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ShowController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,8 @@ Route::group(
         Route::resource('show', ShowController::class)->only([
             'index', 'show', 'store', 'update', 'destroy'
         ]);
+
+        Route::get('/get-new-message', [MessageController::class, 'getMessage']);
     }
 );
 

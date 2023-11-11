@@ -18,15 +18,12 @@ class Show extends Model
 
     public function artists()
     {
-        return $this->hasMany(Artist::class, 'id');
+        return $this->belongsTo(Artist::class, 'artist_id');
     }
 
     public function venues()
     {
-        return $this->hasMany(Venue::class, 'id');
+        return $this->belongsTo(Venue::class, 'venue_id');
     }
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'id');
-    }
+   
 }

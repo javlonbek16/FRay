@@ -26,7 +26,7 @@ class GenreRepository implements GenreInterface
     public function create($request)
     {
         $genre = Genres::create($request);
-        return new GenreResource($genre);
+        return  GenreResource::make($genre);
     }
     public function update(Genres $id, array $request)
     {

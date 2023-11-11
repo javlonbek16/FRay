@@ -10,7 +10,8 @@ class GenreResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'gener_name' => $request->gener_name
+            'gener_name' => $this->gener_name,
+            "id" => $this->id,
         ];
     }
 }

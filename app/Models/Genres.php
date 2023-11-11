@@ -11,4 +11,14 @@ class Genres extends Model
     protected $fillable = [
         'gener_name'
     ];
+
+    public function artists()
+    {
+        return $this->belongsToMany(Artist::class);
+    }
+
+    public function venues()
+    {
+        return $this->belongsToMany(Venue::class);
+    }
 }

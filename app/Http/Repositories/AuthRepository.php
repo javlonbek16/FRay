@@ -43,9 +43,10 @@ class  AuthRepository implements AuthInterface
             ]);
 
             if ($roleType === 'artist') {
+
                 $artist_name = $request->input('artist_name');
 
-                $artist = Artist::create([
+                Artist::create([
                     'user_id' => $user->id,
                     'artist_name' =>  $artist_name,
                     'city_state' => $request->input('city_state'),
@@ -61,7 +62,7 @@ class  AuthRepository implements AuthInterface
                 $venueName = $request->input('venue_name');
                 $address = $request->input('address');
 
-                $venue = Venue::create([
+                 Venue::create([
                     'user_id' => $user->id,
                     'venue_name' => $venueName,
                     'city_state' => $request->input('city_state'),
