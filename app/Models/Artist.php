@@ -27,7 +27,7 @@ class Artist extends Model
     }
     public function genres()
     {
-        return $this->hasMany(Genres::class,'genres_id');
+        return $this->belongsToMany(Genres::class,'genres_id');
     }
     public function shows()
     {

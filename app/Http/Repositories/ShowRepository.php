@@ -4,7 +4,6 @@ namespace App\Http\Repositories;
 
 use App\Http\Interfaces\ShowInterface;
 use App\Http\Requests\StoreShowRequest;
-use App\Http\Requests\UpdateShowRequest;
 use App\Http\Resources\ShowResource;
 use App\Models\Show;
 use App\Utility\IsNeedTallent;
@@ -29,7 +28,7 @@ class ShowRepository implements ShowInterface
     {
         $user = auth()->user();
         $roleType = $user->role_type;
-        
+
         $showData = [
             'start_date' => $request->input('start_date'),
             'end_date' => $request->input('end_date'),
@@ -63,15 +62,6 @@ class ShowRepository implements ShowInterface
         return ShowResource::make($show);
     }
 
-    public function updateShow(UpdateShowRequest $request, int $id)
-    {
-        $show = $this->getShowById($id);
-        $updatedData = $request->validated();
-        $show->update($updatedData);
-
-        return ShowResource::make($show);
-    }
-
     public function deleteShow(int $id)
     {
         $show = $this->getShowById($id);
@@ -80,35 +70,36 @@ class ShowRepository implements ShowInterface
         return new ShowResource($show);
     }
 
-    private function getShowsByDateAndCompletion($date, $isComplete)
-    {
-        return $this->getBaseQuery()
-            ->whereDate('end_date', $isComplete ? '<' : '>', $date)
-            ->where('is_complete', $isComplete)
-            ->paginate(15);
-    }
-
     public function getCompletedShows()
     {
-        return ShowResource::collection($this->getShowsByDateAndCompletion(Carbon::now(), true));
+        $shows = $this->getBaseQuery()
+        ->where('is_complete', false)
+        ->paginate(15);
+    return ShowResource::collection($shows);
     }
 
     public function getUncompletedShows()
     {
-        return ShowResource::collection($this->getShowsByDateAndCompletion(Carbon::now(), false));
+
+        $shows = $this->getBaseQuery()
+            ->where('is_complete', true)
+            ->paginate(15);
+        return ShowResource::collection($shows);
     }
 
     public function updateIsComplete()
     {
         $date = Carbon::now();
 
-        $completedShows = $this->getShowsByDateAndCompletion($date, true);
+        $shows = $this->getBaseQuery()->paginate(15);
 
-        foreach ($completedShows as $show) {
-            $show->is_complete = true;
-            $show->save();
+        foreach ($shows as $show) {
+            if ($show->end_date <= $date) {
+                $show->is_complete = true;
+                $show->save();
+            }
         }
 
-        return ShowResource::collection($completedShows);
+        return ShowResource::collection($shows);
     }
 }

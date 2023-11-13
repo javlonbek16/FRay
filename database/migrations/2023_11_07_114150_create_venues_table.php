@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateVenuesTable extends Migration
 {
+
     public function up(): void
     {
         Schema::create('venues', function (Blueprint $table) {
@@ -17,12 +18,13 @@ class CreateVenuesTable extends Migration
             $table->string('facebook_link');
             $table->string('image');
             $table->string('website_link');
-            $table->boolean('looking_for_concert');
+            $table->boolean('looking_for_talent');
             $table->foreignId('genres_id')->constrained('genres');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });
     }
+
 
     public function down(): void
     {

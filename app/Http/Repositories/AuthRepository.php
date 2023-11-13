@@ -4,14 +4,13 @@ namespace App\Http\Repositories;
 
 use App\Http\Interfaces\AuthInterface;
 use App\Http\Requests\RegisterRequest;
-use App\Models\Artist;
-use App\Models\User;
-use App\Models\Venue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Artist;
+use App\Models\User;
+use App\Models\Venue;
 use Throwable;
-
 
 class  AuthRepository implements AuthInterface
 {
@@ -45,6 +44,7 @@ class  AuthRepository implements AuthInterface
             if ($roleType === 'artist') {
 
                 $artist_name = $request->input('artist_name');
+                $looking_for_concert = $request->input('looking_for_concert');
 
                 Artist::create([
                     'user_id' => $user->id,
@@ -55,14 +55,15 @@ class  AuthRepository implements AuthInterface
                     'facebook_link' => $request->input('facebook_link'),
                     'image' => $request->file('image')->store('upload', 'public'),
                     'website_link' => $request->input('website_link'),
-                    'looking_for_concert' => $request->input('looking_for_concert'),
+                    'looking_for_concert' => $looking_for_concert,
                 ]);
             } elseif ($roleType === 'venue') {
 
                 $venueName = $request->input('venue_name');
                 $address = $request->input('address');
+                $looking_for_talent = $request->input('looking_for_talent');
 
-                 Venue::create([
+                Venue::create([
                     'user_id' => $user->id,
                     'venue_name' => $venueName,
                     'city_state' => $request->input('city_state'),
@@ -72,7 +73,7 @@ class  AuthRepository implements AuthInterface
                     'facebook_link' => $request->input('facebook_link'),
                     'image' => $request->file('image')->store('upload/register', 'public'),
                     'website_link' => $request->input('website_link'),
-                    'looking_for_concert' => $request->input('looking_for_concert'),
+                    'looking_for_talent' => $looking_for_talent,
                 ]);
             } else {
                 return response()->json(['error' => 'Invalid role type'], 400);

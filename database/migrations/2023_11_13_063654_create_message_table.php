@@ -13,7 +13,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('artist_id')->constrained('artists')->nullable();
             $table->foreignId('venue_id')->constrained('venues')->nullable();
+            $table->foreignId('author_id')->constrained('users')->nullable();
             $table->string('topic');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->boolean('is_accept')->default(false);
             $table->timestamps();
         });
     }

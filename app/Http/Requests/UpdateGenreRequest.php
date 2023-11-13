@@ -15,7 +15,7 @@ class UpdateGenreRequest extends FormRequest
     {
         return [
             'id' => 'required',
-            'genre_name' => 'required|string|max:255|unique',
+            'genre_name' => 'required|string|max:255|unique:genres',
         ];
     }
 }

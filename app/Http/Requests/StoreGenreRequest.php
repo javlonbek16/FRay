@@ -15,7 +15,7 @@ class StoreGenreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'gener_name' => 'required|string',
+            'gener_name' => 'required|string|unique:genres',
         ];
     }
 }

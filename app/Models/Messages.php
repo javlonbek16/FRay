@@ -9,12 +9,9 @@ class Messages extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'artist_id',
-        'venue_id',
-        'topic'
-    ];
-    
+    protected $fillable = ['venue_id', 'artist_id', 'topic', 'author_id', 'start_date', 'end_date'];
+
+
     public function artists()
     {
         return $this->hasMany(Artist::class, 'id');

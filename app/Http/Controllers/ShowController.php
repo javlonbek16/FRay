@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Interfaces\ShowInterface;
 use App\Http\Requests\StoreShowRequest;
-use App\Http\Requests\UpdateShowRequest;
 use App\Utility\IsNeedTallent;
-use Illuminate\Http\Request;
 
 class ShowController extends Controller
 {
@@ -34,11 +32,6 @@ class ShowController extends Controller
         return $this->showRepository->getShowById($id);
     }
 
-    public function update(UpdateShowRequest $request, int $id)
-    {
-        return $this->showRepository->updateShow($request, $id);
-    }
-
     public function destroy(int $id)
     {
         return $this->showRepository->deleteShow($id);
@@ -54,8 +47,9 @@ class ShowController extends Controller
         $show = $this->showRepository->getUnCompletedShows();
         return $show;
     }
-    public function updateIsComplete()
-    {
-        return  $this->showRepository->updateIsComplete();
+
+    public function updateIsComplete(){
+        $show = $this->showRepository->updateIsComplete();
+        return $show;  
     }
 }

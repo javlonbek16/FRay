@@ -13,8 +13,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('artist_id')->constrained('artists')->nullable();
             $table->foreignId('venue_id')->constrained('venues')->nullable();
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->boolean('is_complete')->default(false);
             $table->timestamps();
         });

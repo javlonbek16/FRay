@@ -19,7 +19,7 @@ class Venue extends Model
         'facebook_link',
         'image',
         'website_link',
-        'looking_for_concert',
+        'looking_for_talent',
         'user_id',
     ];
 
@@ -29,7 +29,7 @@ class Venue extends Model
     }
     public function genres()
     {
-        return $this->hasMany(Genres::class,'genres_id');
+        return $this->belongsToMany(Genres::class,'genres_id');
     }
     public function shows()
     {
