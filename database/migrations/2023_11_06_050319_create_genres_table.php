@@ -16,6 +16,8 @@ return new class extends Migration
         });
     }
 
+    public function  venue(){}
+
     public function down(): void
     {
         Schema::dropIfExists('genres');

@@ -70,23 +70,6 @@ class ShowRepository implements ShowInterface
         return new ShowResource($show);
     }
 
-    public function getCompletedShows()
-    {
-        $shows = $this->getBaseQuery()
-        ->where('is_complete', false)
-        ->paginate(15);
-    return ShowResource::collection($shows);
-    }
-
-    public function getUncompletedShows()
-    {
-
-        $shows = $this->getBaseQuery()
-            ->where('is_complete', true)
-            ->paginate(15);
-        return ShowResource::collection($shows);
-    }
-
     public function updateIsComplete()
     {
         $date = Carbon::now();

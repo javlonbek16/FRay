@@ -71,7 +71,7 @@ class  AuthRepository implements AuthInterface
                     'phone' => $request->input('phone'),
                     'genres_id' => $request->input('genres_id'),
                     'facebook_link' => $request->input('facebook_link'),
-                    'image' => $request->file('image')->store('upload/register', 'public'),
+                    'image' => $request->file('image')->store('upload', 'public'),
                     'website_link' => $request->input('website_link'),
                     'looking_for_talent' => $looking_for_talent,
                 ]);

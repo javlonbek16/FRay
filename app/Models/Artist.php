@@ -1,15 +1,17 @@
 <?php
 
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Artist extends Model
 {
     use HasFactory;
 
-    protected  $fillable = [
+    protected $fillable = [
         'artist_name',
         'city_state',
         'phone',
@@ -23,14 +25,17 @@ class Artist extends Model
 
     public function users()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id');
     }
+
     public function genres()
     {
-        return $this->belongsToMany(Genres::class,'genres_id');
+        return $this->belongsToMany(Genres::class);
     }
+
     public function shows()
     {
         return $this->hasMany(Show::class);
     }
+  
 }

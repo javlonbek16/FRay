@@ -14,9 +14,5 @@ interface ShowInterface
 
     public function deleteShow(int $id);
     
-    public function getCompletedShows();
-
-    public function getUnCompletedShows();
-    
     public function updateIsComplete();
 }

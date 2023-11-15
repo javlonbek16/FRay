@@ -9,16 +9,19 @@ class Messages extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['venue_id', 'artist_id', 'topic', 'author_id', 'start_date', 'end_date'];
+    protected $fillable = [
+        'venue_id', 'artist_id', 'topic',
+        'author_id', 'start_date', 'end_date'
+    ];
 
 
     public function artists()
     {
-        return $this->hasMany(Artist::class, 'id');
+        return $this->belongsTo(Artist::class, 'artist_id');
     }
 
     public function venues()
     {
-        return $this->hasMany(Venue::class, 'id');
+        return $this->belongsTo(Venue::class, 'venue_id');
     }
 }

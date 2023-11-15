@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\ArtistFilter;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GenresController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ShowController;
+use App\Http\Controllers\VenueFilter;
 use Illuminate\Support\Facades\Route;
-
 
 // authentication of the user 
 
@@ -16,19 +17,12 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
-
 // if user admin
-
-Route::group(
-
-    ['middleware' => ['auth:sanctum', 'role:admin']],
-
-    function () {
-        Route::resource('genre', GenresController::class)->only([
-            'index', 'show', 'store', 'update', 'destroy'
-        ]);
-    }
-);
+Route::group(['middleware' => ['auth:sanctum', 'role:admin']], function () {
+    Route::resource('genre', GenresController::class)->only([
+        'index', 'show', 'store', 'update', 'destroy'
+    ]);
+});
 
 
 // if uuser registered
@@ -49,8 +43,26 @@ Route::group(
     }
 );
 
+// artist filters 
+
+Route::prefix('artist')->group(function () {
+
+    Route::get('{artist_id}/complete-shows', [ArtistFilter::class, 'artistCompleteShows']);
+
+    Route::get('{artist_id}/incomplete-shows', [ArtistFilter::class, 'artistIncompleteShows']);
+});
+
+// venue filters 
+
+Route::prefix('venue')->group(function () {
+
+    Route::get('{venue_id}/complete-shows', [VenueFilter::class, 'venueCompleteShows']);
+
+    Route::get('{venue_id}/incomplete-shows', [VenueFilter::class, 'venueIncompleteShows']);
+});
+
 //  the routes can see user if not logged
 
 Route::get('/update-complate-shows', [ShowController::class, 'updateIsComplete']);
-Route::get('/get-complate-shows', [ShowController::class, 'getCompletedShows']);
-Route::get('/get-uncomplate-shows', [ShowController::class, 'getUnCompletedShows']);
+
+Route::get('/filter', [ArtistFilter::class, 'getShows']);

@@ -8,14 +8,13 @@ class UpdateGenreRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     public function rules(): array
     {
         return [
-            'id' => 'required',
-            'genre_name' => 'required|string|max:255|unique:genres',
+            'gener_name' => 'required|string|max:255',
         ];
     }
 }

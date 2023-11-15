@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Interfaces\ShowInterface;
 use App\Http\Requests\StoreShowRequest;
-use App\Utility\IsNeedTallent;
 
 class ShowController extends Controller
 {
-    use IsNeedTallent;
+    
     private $showRepository;
 
     public function __construct(ShowInterface $showRepository)
@@ -18,8 +17,7 @@ class ShowController extends Controller
 
     public function index()
     {
-        $shows = $this->showRepository->getAllShows();
-        return $shows;
+        return $this->showRepository->getAllShows();
     }
 
     public function store(StoreShowRequest $request)
@@ -37,19 +35,8 @@ class ShowController extends Controller
         return $this->showRepository->deleteShow($id);
     }
 
-    public function getCompletedShows()
+    public function updateIsComplete()
     {
-        $show = $this->showRepository->getCompletedShows();
-        return $show;
-    }
-    public function getUnCompletedShows()
-    {
-        $show = $this->showRepository->getUnCompletedShows();
-        return $show;
-    }
-
-    public function updateIsComplete(){
-        $show = $this->showRepository->updateIsComplete();
-        return $show;  
+        return $this->showRepository->updateIsComplete();
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User;
 
 class Venue extends Model
 {
     use HasFactory;
 
-    protected  $fillable = [
+    protected $fillable = [
         'venue_name',
         'city_state',
         'address',
@@ -25,12 +25,14 @@ class Venue extends Model
 
     public function users()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id');
     }
+
     public function genres()
     {
-        return $this->belongsToMany(Genres::class,'genres_id');
+        return $this->belongsToMany(Genres::class);
     }
+
     public function shows()
     {
         return $this->hasMany(Show::class);

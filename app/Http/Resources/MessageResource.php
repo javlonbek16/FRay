@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ShowResource extends JsonResource
+class MessageResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
@@ -13,9 +13,9 @@ class ShowResource extends JsonResource
             "id" => $this->id,
             "venue name" => $this->venues->venue_name,
             "artist name" => $this->artists->artist_name,
-            "start date" => $this->start_date,
-            "end date" => $this->end_date,
-            "is_complete" => $this->is_complete ? 'fineshed' : 'unfinished',
+            "show start date" => $this->start_date,
+            "show end date" => $this->end_date,
+            "is accept" => $this->is_accept ? 'accepted' : 'pending',
         ];
     }
 }

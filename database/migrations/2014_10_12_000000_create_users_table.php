@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('role_type', ['artist', 'venue',]);
+            $table->enum('role_type', ['artist', 'venue','admin']);
             $table->rememberToken();
             $table->timestamps();
         });

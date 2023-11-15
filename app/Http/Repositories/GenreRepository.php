@@ -28,17 +28,13 @@ class GenreRepository implements GenreInterface
         $genre = Genres::create($request);
         return  GenreResource::make($genre);
     }
-    public function update(Genres $id, array $request)
+    public function update(Genres $genre, array $request)
     {
-        $genre = Genres::find($id);
-
-        if (!$genre) {
-            return response()->json(['error' => 'Genres not found'], 404);
-        }
         $genre->update($request);
-
+    
         return new GenreResource($genre);
     }
+    
     public function delete(Genres $id,)
     {
         $genre = Genres::find($id);
