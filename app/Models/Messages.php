@@ -14,7 +14,6 @@ class Messages extends Model
         'author_id', 'start_date', 'end_date'
     ];
 
-
     public function artists()
     {
         return $this->belongsTo(Artist::class, 'artist_id');

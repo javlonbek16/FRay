@@ -13,12 +13,12 @@ class CreateArtistsTable extends Migration
             $table->string('artist_name')->unique();
             $table->string('city_state');
             $table->string('phone');
-            $table->string('facebook_link');
+            $table->string('facebook_link')->nullable();
             $table->string('image');
-            $table->string('website_link');
+            $table->string('website_link')->nullable();
             $table->boolean('looking_for_concert');
             $table->foreignId('genres_id')->constrained('genres');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->unique();
             $table->timestamps();
         });
     }

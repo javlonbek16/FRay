@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Venue;
+use App\Http\Interfaces\VenueFilterInterface;
+
 
 class VenueFilter extends Controller
 {
-    private function venues()
+    public function __construct(public VenueFilterInterface $venueFilter)
     {
-        return Venue::with(['shows']);
+    }
+    public function  index()
+    {
+        return $this->venueFilter->index();
     }
 
     public function venueCompleteShows($venue_id)
     {
-        return $this->venues()->find($venue_id)
-            ->shows()
-            ->where('is_complete', true)
-            ->paginate(5);
+        return $this->venueFilter->venueCompleteShows($venue_id);
     }
 
+    public function showVenue($id)
+    {
+        return $this->venueFilter->showVenue($id);
+    }
     public function venueIncompleteShows($venue_id)
     {
-        return $this->venues()->find($venue_id)
-            ->shows()
-            ->where('is_complete', false)
-            ->paginate(5);
+        return $this->venueFilter->venueIncompleteShows($venue_id);
     }
-
 }

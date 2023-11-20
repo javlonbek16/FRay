@@ -25,7 +25,7 @@ class Venue extends Model
 
     public function users()
     {
-        return $this->hasOne(User::class, 'id');
+        return $this->belongsTo(User::class, 'id');
     }
 
     public function genres()
